@@ -1,0 +1,1 @@
+alert("test page2 js");
