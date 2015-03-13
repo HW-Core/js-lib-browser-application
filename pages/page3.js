@@ -1,15 +1,18 @@
-hw2.define([
-    "hw2!PATH_JS_LIB:browser/gui/Module.js"
-], function () {
-    var $ = this;
 
-    var module = $.class.extends($.Browser.Module)([
+'use strict';
+
+hw2.define([
+], function () {
+
+    return $.class.extends($.Browser.Component)([
         $.public({
-            __construct: function () {
-                this._i.__parent.__construct("#page3",new $.Browser.Template("pages/page.html"));
+            __construct: function (parent, childs, opt) {
+                var tmpl = new $.Browser.Template("pages/page3.html");
+
+                opt.template = tmpl;
+
+                this.__super(parent, childs, opt);
             }
         })
     ]);
-
-    new module();
 });
