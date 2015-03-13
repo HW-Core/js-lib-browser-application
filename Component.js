@@ -6,31 +6,34 @@
 'use strict';
 
 hw2.define([
-    "hw2!PATH_JS_LIB:browser/gui/index.js"
+    "hw2!PATH_JS_LIB:browser/gui/index.js",
+    "hw2!PATH_JS_LIB:application/index.js"
 ], function () {
     var $ = this;
 
-    $.Browser.Component = $.public.abstract.class([
-        $.private({
-            relEl: [], // array of elements where the modules has been loaded
+    return $.Browser.Component = $.public.abstract.class.extends($.Component)([
+        $.protected({
             template: null,
-            childs: null
+            selector: null
         }),
         $.public({
-            __construct: function (template, childs) {
-                if (!(template instanceof $.Browser.Template)) {
-                    throw new Error("You must pass a Template object as second argument");
+            __construct: function (parent, childs, opt) {
+                if (!(opt.template instanceof $.Browser.Template)) {
+                    throw new Error("You must pass a Template object in opt parameter");
                 }
 
-                this._i.template = template;
-                this._i.childs = childs;
-            },
-            remove: function (selector) {
-                $.Browser.Loader.removeCss(this._i.template.getCss());
+                this.i.template = opt.template;
+                this.i.selector = opt.selector;
 
-                this.__destruct();
+                this.__super(parent, childs, opt);
             },
-            init: function (selector) {
+            /*__destruct: function () {
+                $.Browser.Loader.removeCss(this.i.template.getCss());
+
+                this.__super();
+            },*/
+            init: function () {
+                var that = this;
 
                 function tmplReq (tmpl) {
                     var html = tmpl.getHtml();
@@ -38,68 +41,20 @@ hw2.define([
                     var req = [];
                     // fifo order
                     html && req.push(html);
-                    css && req.push(css);
+                    req = req.concat(css);
                     return req;
                 }
 
-                var that = this;
-                return $.Browser.Loader.load(tmplReq(this._i.template), null, {selector: selector})
+                return $.Browser.Loader.load(tmplReq(this.i.template), null, {selector: this.i.selector})
                         .then(function () {
-                            if (typeof that._i.childs === "object") {
-                                var promises = [];
-                                for (var sel in that._i.childs) {
-                                    var child = that._i.childs[sel];
-                                    promises.push(that.s.loadByPath(child, sel));
-                                }
-
-                                return $.Q.all(promises).then(function () {
-                                    return true;
-                                });
-                            } else {
-                                return true;
-                            }
+                            return that.__super();
                         })
                         .fail(function (error) {
                             throw error;
                         });
-            }
-        }),
-        $.public.static({
-            load: function (M, sel) {
-                if (M.__isClass && M.__isChildOf($.Browser.Module)) {
-                    var m = new M();
-                    return m.init(sel);
-                }
-
-                return false;
             },
-            loadByPath: function (mPath, sel) {
-                return $.Browser.Loader.load(mPath)
-                        .then(function (M) {
-                            var res = this.s.load(M, sel);
-                            if (res===false)
-                                throw new Error("Passed object is not a Component");
-
-                            return res;
-                        });
-            }
-        })
-    ]);
-
-    $.Browser.ModRegistry = $.public.static.final.class([
-        $.private.static({
-            regList: []
-        }),
-        $.public.static({
-            register: function (name, path) {
-                this._s.regList[name] = path;
-            },
-            unregister: function (name) {
-                this._s.regList.splice(name, 1);
-            },
-            load: function (name, sel) {
-                var mPath = this._s.regList[name];
-                return $.Browser.Module.loadByPath(mPath, sel);
+            update: function (routeInfo) {
+                this.__super(routeInfo);
             }
         })
     ]);

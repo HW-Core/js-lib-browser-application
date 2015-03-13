@@ -1,5 +1,9 @@
 {
   "name": "hw2/modules/js/src/library/browser/application",
+  "dependencies": {
+    "%common": "hw2-core/js-library-browser-common#*",
+    "%application": "hw2-core/js-library-application#*"
+  },
   "devDependencies": {
     "%tests": "hw2-core/js-library-browser-application#tests",
     "%doc": "hw2-core/js-library-browser-application#doc"
