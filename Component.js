@@ -6,12 +6,12 @@
 'use strict';
 
 hw2.define([
-    "hw2!PATH_JS_LIB:browser/gui/index.js",
-    "hw2!PATH_JS_LIB:application/index.js"
+    "hw2!{PATH_JS_LIB}browser/gui/index.js",
+    "hw2!{PATH_JS_LIB}application/index.js"
 ], function () {
     var $ = this;
 
-    return $.Browser.Component = $.public.abstract.class.extends($.Component)([
+    return $.Browser.Component = $.public.abstract.class.extends($.Component)(
         $.protected({
             template: null,
             selector: null
@@ -27,11 +27,15 @@ hw2.define([
 
                 this.__super(parent, childs, opt);
             },
-            /*__destruct: function () {
+            __destruct: function () {
                 $.Browser.Loader.removeCss(this.i.template.getCss());
+                
+                var el=$.Browser.JQ(this.i.selector);
+                for (var i=0;i<el.length;i++)
+                    el[i].innerHTML="";
 
                 this.__super();
-            },*/
+            },
             init: function () {
                 var that = this;
 
@@ -41,21 +45,22 @@ hw2.define([
                     var req = [];
                     // fifo order
                     html && req.push(html);
-                    req = req.concat(css);
+                    if (css.length > 0)
+                        req = req.concat(css);
                     return req;
                 }
 
                 return $.Browser.Loader.load(tmplReq(this.i.template), null, {selector: this.i.selector})
                         .then(function () {
                             return that.__super();
-                        })
-                        .fail(function (error) {
-                            throw error;
                         });
             },
             update: function (routeInfo) {
                 this.__super(routeInfo);
+            },
+            updateParams: function (routeInfo) {
+                return [];
             }
         })
-    ]);
+    );
 });
