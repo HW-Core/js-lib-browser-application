@@ -1,9 +1,9 @@
 hw2.define([
-    "hw2!PATH_JS_LIB:browser/application/Component.js"
+    "hw2!{PATH_JS_LIB}browser/application/Component.js"
 ], function () {
     var $ = this;
 
-    var MainComponent = $.class.extends($.Browser.Component)([
+    var MainComponent = $.class.extends($.Browser.Component)(
         $.public({
             __construct: function (parent, childs, opt) {
                 var tmpl = new $.Browser.Template("template.html");
@@ -17,7 +17,7 @@ hw2.define([
                 }, opt);
             }
         })
-    ]);
+    );
 
     var System = $.Browser.System.I();
 
