@@ -2,7 +2,9 @@
   "name": "hw2/modules/js/src/library/browser/application",
   "dependencies": {
     "%common": "hw2-core/js-library-browser-common#*",
-    "%application": "hw2-core/js-library-application#*"
+    "%application": "hw2-core/js-library-application#*",
+    "%router": "hw2-core/js-library-browser-router#*",
+    "%gui": "hw2-core/js-library-browser-gui#*"
   },
   "devDependencies": {
     "%tests": "hw2-core/js-library-browser-application#tests",
