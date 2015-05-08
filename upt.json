@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "%tests": "hw2-core/js-library-browser-application#tests",
-    "%doc": "hw2-core/js-library-browser-application#doc"
+    "%doc": "hw2-core/js-library-browser-application#gh-pages"
   },
   "keep": [
     ".git/config"
