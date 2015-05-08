@@ -1,8 +1,3 @@
-/*
- * Copyright (C) 2007 - 2014 Hyperweb2 All rights reserved.
- * GNU General Public License version 3; see www.hyperweb2.com/terms/
- */
-
 'use strict';
 
 hw2.define([
@@ -14,7 +9,8 @@ hw2.define([
     return $.Browser.Component = $.public.abstract.class.extends($.Component)(
         $.protected({
             template: null,
-            selector: null
+            selector: null,
+            router: null
         }),
         $.public({
             __construct: function (parent, childs, opt) {
@@ -24,20 +20,27 @@ hw2.define([
 
                 this.i.template = opt.template;
                 this.i.selector = opt.selector;
+                // if not opt.router defined then get router
+                // from System or parent component
+                this.i.router = opt.router || parent.getRouter();
 
                 this.__super(parent, childs, opt);
             },
             __destruct: function () {
-                $.Browser.Loader.removeCss(this.i.template.getCss());
-                
-                var el=$.Browser.JQ(this.i.selector);
-                for (var i=0;i<el.length;i++)
-                    el[i].innerHTML="";
+                var css = this.i.template.getCss();
+                for (var i = 0; i < css.length; i++) {
+                    $.Browser.Loader.removeCss(css[i]);
+                }
+
+                var el = $.Browser.JQ(this.i.selector);
+                for (var i = 0; i < el.length; i++)
+                    el[i].innerHTML = "";
 
                 this.__super();
             },
             init: function () {
                 var that = this;
+
 
                 function tmplReq (tmpl) {
                     var html = tmpl.getHtml();
@@ -50,17 +53,17 @@ hw2.define([
                     return req;
                 }
 
-                return $.Browser.Loader.load(tmplReq(this.i.template), null, {selector: this.i.selector})
-                        .then(function () {
-                            return that.__super();
-                        });
+                return $.Browser.include(tmplReq(this.i.template), null, {selector: this.i.selector})
+                    .then(function () {
+                        return that.__super();
+                    });
             },
-            update: function (routeInfo) {
-                this.__super(routeInfo);
+            getRouter: function () {
+                return this.i.router;
             },
-            updateParams: function (routeInfo) {
-                return [];
+            update: function () {
+                this.__super();
             }
         })
-    );
+        );
 });
