@@ -1,8 +1,8 @@
 'use strict';
 
-hw2.define([
-    "hw2!{PATH_JS_LIB}browser/gui/index.js",
-    "hw2!{PATH_JS_LIB}application/index.js"
+hwc.define([
+    "hwc!{PATH_JS_LIB}browser/gui/index.js",
+    "hwc!{PATH_JS_LIB}application/index.js"
 ], function () {
     var $ = this;
 

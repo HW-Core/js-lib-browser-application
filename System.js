@@ -1,10 +1,10 @@
 'use strict';
 
-hw2.include([
-    'hw2!{PATH_JS_LIB}application/index.js',
-    'hw2!{PATH_JS_LIB}browser/router/index.js'
+hwc.include([
+    'hwc!{PATH_JS_LIB}application/index.js',
+    'hwc!{PATH_JS_LIB}browser/router/index.js'
 ]).define(function () {
-    $ = this;
+    var $ = this;
 
     return $.Browser.System = $.public.class.extends($.System)(
         $.protected({
@@ -12,7 +12,7 @@ hw2.include([
         }),
         $.public({
             __construct: function (isSpa) {
-                this.i.router = new $.Router(document.location.href, isSpa);
+                this.i.router = new $.Browser.Router(document.location.href, isSpa);
 
                 this.i.router.addListner(this.i);
 
