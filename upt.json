@@ -1,5 +1,5 @@
 {
-  "name": "hwcore/modulesjs/src/library/browser/application/tests",
+  "name": "hwcore/modules/js/src/library/browser/application/tests",
   "dependencies": {
     "%parent": "hw-core/js-library-browser-application"
   },
