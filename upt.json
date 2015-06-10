@@ -1,7 +1,7 @@
 {
-  "name": "hw2/modules/js/src/library/browser/application/doc",
+  "name": "hwcore/modulesjs/src/library/browser/application/doc",
   "dependencies": {
-    "%parent": "hw2-core/js-library-browser-application"
+    "%parent": "hw-core/js-library-browser-application"
   },
   "keep": [
     ".git/config"
