@@ -11,11 +11,11 @@ VENDOR="hw-core"
 # ADD DEPENDENCIES
 #
 
-Joiner:add_repo "https://github.com/HW-Core/js-library-class.git" "js-library-class" "master" "$VENDOR"
-Joiner:add_repo "https://github.com/HW-Core/js-library-browser-common" "master" "$VENDOR"
-Joiner:add_repo "https://github.com/HW-Core/js-library-application" "master" "$VENDOR"
-Joiner:add_repo "https://github.com/HW-Core/js-library-browser-router" "master" "$VENDOR"
-Joiner:add_repo "https://github.com/HW-Core/js-library-browser-gui" "master" "$VENDOR"
+Joiner:add_repo "https://github.com/HW-Core/js-library-class.git"      "js-library-class"          "master" "$VENDOR"
+Joiner:add_repo "https://github.com/HW-Core/js-library-browser-common" "js-library-browser-common" "master" "$VENDOR"
+Joiner:add_repo "https://github.com/HW-Core/js-library-application"    "js-library-application"    "master" "$VENDOR"
+Joiner:add_repo "https://github.com/HW-Core/js-library-browser-router" "js-library-browser-router" "master" "$VENDOR"
+Joiner:add_repo "https://github.com/HW-Core/js-library-browser-gui"    "js-library-browser-gui"    "master" "$VENDOR"
 
 if Joiner:with_dev ; then
     Joiner:add_repo "https://github.com/HW-Core/$NAME.git" "$NAME/tests" "tests" "$VENDOR"
