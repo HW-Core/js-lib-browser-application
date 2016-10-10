@@ -2,7 +2,7 @@
 
 hwc.include([
     'hwc!{PATH_JS_LIB}application/index.js',
-    'hwc!{PATH_JS_LIB}browser/router/index.js'
+    'hwc!{PATH_JS_LIB}browser-router/index.js'
 ]).define(function () {
     var $ = this;
 

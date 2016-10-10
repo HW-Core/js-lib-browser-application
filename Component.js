@@ -1,7 +1,7 @@
 'use strict';
 
 hwc.define([
-    "hwc!{PATH_JS_LIB}browser/gui/index.js",
+    "hwc!{PATH_JS_LIB}browser-gui/index.js",
     "hwc!{PATH_JS_LIB}application/index.js"
 ], function () {
     var $ = this;
